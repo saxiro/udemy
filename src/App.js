@@ -1,34 +1,34 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Person from './components/Person';
 
-class App extends Component {
+const App = props => {
+  const [ personsState, setPersonsState ] =  useState(
+    {
+      persons: [
+        { name: 'Max', age: 28 },
+        { name: 'Manu', age: 29 },
+        { name: 'Stephanie', age: 26 }
+      ]
+    }
+  );
 
-  state = {
-    persons: [
-      { name: 'Fabricio', age: 37 },
-      { name: 'Dandara', age: 26 },
-      { name: 'Filipe', age: 31 }
-    ]
-  }
-
-  switchNameHandler = () => {
-    console.log('Was clicked');
+  const switchNameHandler = () => {
+    //console.log('Was clicked');
+    setPersonsState({
+      persons: [...personsState.persons, {name: 'OutroNome', age: 22}]
+    });
   };
 
-  render() {
-    return (
-      <div className="App">
-        {this.state.persons.map(p =>
-          <Person key={p.name} name={p.name} age={p.age} />
-        )}
+  return (
+    <div className="App">
+      {personsState.persons.map(p =>
+        <Person key={p.name} name={p.name} age={p.age} />
+      )}
 
-        <button onClick={this.switchNameHandler}>SWITCH</button>
-      </div>
-
-    );
-  }
-
+      <button onClick={switchNameHandler}>SWITCH</button>
+    </div>
+  );
 }
 
 export default App;
